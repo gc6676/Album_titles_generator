@@ -196,7 +196,7 @@ const b = [
 "kilómetro","metro","centímetro","milímetro","segundo",
 "minuto","hora","día cero","año perdido","fecha falsa",
 "archivo final","versión beta","demo","borrador","preview",
-"release","silencio final"
+"release","silencio final",
 "ruinstate","miraclefake","poisonsoft","curefalse","karmaloop","feverlow",
 "phantomtouch","angelnoise","devilcalm","dogmemory","catstatic","crowwatch",
 "doveshadow","sirensleep","wolfinside","butterflycut","snakecoil",
@@ -386,7 +386,7 @@ const c = [
 "somewhere","somewhere/somewhere","somewhere else",
 "everywhere","everywhere/nowhere",
 "anywhere","anywhere/else",
-"between now","between never","between error"
+"between now","between never","between error",
 "and","or","but","yet","so","nor","although","because","if","else","unless","as if","as though",
 "of","from","to","for","with","without","by","via","per","plus","minus",
 "de","del","de la","de los","de las","desde","hasta","entre","contra","hacia",
@@ -557,7 +557,7 @@ const d = [
 "clarity-overdose","blur-addicted",
 "nothing-special","special-nothing",
 "this-again","not-this","never-this",
-"last-again","first-again","again-again"
+"last-again","first-again","again-again",
 "stolen","forgotten","unseen","unheard","unsaid","untitled","unnamed","unmade","unwritten","unborn",
 "broken","bent","blurred","burned","faded","glitched","warped","muted","paused","looped",
 "raw","cold","warm","wet","dry","dark","bright","soft","hard","thin","heavy",
