@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Track Names Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #050705;
+      --panel: rgba(0,0,0,.65);
+      --green: #39ff14;
+      --green2:#20d80a;
+      --border: rgba(57,255,20,.55);
+      --shadow: 0 0 10px rgba(57,255,20,.25), 0 0 30px rgba(57,255,20,.12);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background:
+        radial-gradient(1200px 600px at 50% 20%, rgba(57,255,20,.08), transparent 60%),
+        radial-gradient(900px 500px at 50% 90%, rgba(57,255,20,.05), transparent 60%),
+        linear-gradient(180deg, #020302, #070a07);
+      color: var(--green);
+      overflow-x:hidden;
+    }
+
+    /* scanlines */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.03),
+        rgba(255,255,255,.03) 1px,
+        rgba(0,0,0,0) 3px,
+        rgba(0,0,0,0) 6px
+      );
+      mix-blend-mode: overlay;
+      pointer-events:none;
+      opacity:.35;
+    }
+    /* vignette */
+    body::after{
+      content:"";
+      position:fixed; inset:-40px;
+      background: radial-gradient(closest-side, transparent 60%, rgba(0,0,0,.65) 100%);
+      pointer-events:none;
+      opacity:.85;
+    }
+
+    .wrap{
+      position:relative;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 18px 60px;
+      text-align:center;
+    }
+
+    h1{
+      margin: 0 0 12px;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(57,255,20,.35);
+      color: var(--green);
+    }
+
+    .sub{
+      margin: 0 auto 26px;
+      max-width: 760px;
+      color: rgba(57,255,20,.85);
+      font-size: clamp(14px, 2vw, 18px);
+      line-height: 1.4;
+      text-shadow: 0 0 6px rgba(57,255,20,.18);
+    }
+
+    .controls{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      align-items:center;
+      justify-content:center;
+      margin: 18px 0 28px;
+    }
+
+    .row{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      color: rgba(57,255,20,.9);
+    }
+
+    label{ font-size: 16px; }
+
+    input{
+      width: 110px;
+      padding: 10px 12px;
+      font-size: 18px;
+      color: var(--green);
+      background: rgba(0,0,0,.6);
+      border: 1px solid var(--border);
+      outline: none;
+      box-shadow: var(--shadow);
+      border-radius: 0;
+    }
+    input:focus{
+      border-color: rgba(57,255,20,.85);
+      box-shadow: 0 0 14px rgba(57,255,20,.35), 0 0 40px rgba(57,255,20,.12);
+    }
+
+    .btn{
+      padding: 14px 20px;
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: var(--green);
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(57,255,20,.75);
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      text-transform: uppercase;
+      border-radius: 0;
+      min-width: 260px;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn.small{ min-width: 180px; padding: 12px 18px; }
+    .btn:hover{
+      border-color: rgba(57,255,20,.95);
+      box-shadow: 0 0 16px rgba(57,255,20,.35), 0 0 60px rgba(57,255,20,.14);
+      transform: translateY(-1px);
+    }
+    .btn:active{ transform: translateY(0px); }
+
+    .out{
+      margin: 0 auto;
+      max-width: 860px;
+      text-align:left;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(57,255,20,.35);
+      box-shadow: 0 0 18px rgba(0,0,0,.65);
+      padding: 18px 18px;
+      min-height: 120px;
+      white-space: pre-wrap;
+      line-height: 1.35;
+      color: rgba(57,255,20,.95);
+      text-shadow: 0 0 8px rgba(57,255,20,.12);
+    }
+
+    .hint{
+      margin-top: 10px;
+      color: rgba(57,255,20,.65);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Generador de Track Names</h1>
+    <p class="sub">
+      Esta herramienta genera un <b>título de álbum</b> y una lista de <b>títulos de tracks</b> aleatorios.
+    </p>
+
+    <div class="controls">
+      <div class="row">
+        <label for="tracks">¿Cuántas tracks tiene tu álbum?</label>
+        <input id="tracks" type="number" min="1" max="50" value="5" />
+      </div>
+
+      <button class="btn" id="gen">GENERAR</button>
+      <button class="btn small" id="share">COMPARTIR</button>
+
+      <div class="hint">Tip: “Compartir” copia el resultado o abre el share del móvil si está disponible.</div>
+    </div>
+
+    <div class="out" id="out">Pulsa el botón…</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
