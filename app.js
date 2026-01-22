@@ -1,4 +1,3 @@
-// ====== Pega aquí tus listas reales (a, b, c, d) ======
 const a = [
 "PLEASE STAY","OF COURSE","TAKE EVERYTHING","STRAIGHT TO THE POINT","I SAID NO","I SAID YES","NOBODY ELSE",
 "COME BACK","STAY HERE","DON'T MOVE","DON'T LOOK","DON'T ASK","DON'T CALL","DON'T LIE","DON'T WAIT",
@@ -618,7 +617,6 @@ const d = [
 "here","there","now","then","aquí","allí","ora","poi",
 "before","after","prima","dopo","antes","después"
 ];
-// =======================================================
 
 function randChoice(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -677,7 +675,6 @@ genBtn.addEventListener("click", render);
 shareBtn.addEventListener("click", async () => {
   const text = out.textContent.trim() === "Pulsa el botón…" ? render() : out.textContent;
 
-  // Si el navegador soporta share (móviles), úsalo:
   if (navigator.share) {
     try {
       await navigator.share({ title: "Track Names Generator", text });
@@ -685,7 +682,6 @@ shareBtn.addEventListener("click", async () => {
     } catch (_) {}
   }
 
-  // Si no, copia al portapapeles:
   try {
     await navigator.clipboard.writeText(text);
     out.textContent = text + "\n\n[COPIADO ✅]";
@@ -693,3 +689,4 @@ shareBtn.addEventListener("click", async () => {
     alert("No se pudo copiar. Selecciona el texto y cópialo manualmente.");
   }
 });
+
